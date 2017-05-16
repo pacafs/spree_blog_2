@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 SpreeBlog
 =========
 
@@ -51,3 +52,7 @@ If you'd like to contribute, please take a look at the
 pull request.
 
 Copyright (c) 2017 [name of extension creator], released under the New BSD License
+=======
+# spree_blog
+Spree Blog Extension 
+>>>>>>> e625a2cf6970e0274ca70bbb8cd6106ce7797c4e
