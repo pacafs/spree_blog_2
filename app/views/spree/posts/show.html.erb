@@ -7,7 +7,7 @@
 
 <p>
   <strong>Content:</strong>
-  <%= @spree_post.content %>
+  <%= raw(@spree_post.content) %>
 </p>
 
 <%#= link_to 'Edit', edit_post_path(@spree_post) %> | <%= link_to 'Back', blog_path %>

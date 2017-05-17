@@ -1,5 +1,7 @@
 Spree::Core::Engine.add_routes do
 
+    mount Ckeditor::Engine => '/ckeditor'
+
     scope '/blog' do
       resources :posts, only: [:index, :show]
     end

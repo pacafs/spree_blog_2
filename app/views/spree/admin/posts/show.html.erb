@@ -7,7 +7,7 @@
 
 <p>
   <strong>Content:</strong>
-  <%= @spree_admin_post.content %>
+  <%= raw(@spree_admin_post.content) %>
 </p>
 
 <%= link_to 'Edit', edit_admin_post_path(@spree_admin_post) %> | <%= link_to 'Back', admin_posts_path %>
