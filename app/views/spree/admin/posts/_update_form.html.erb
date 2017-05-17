@@ -1,0 +1,25 @@
+<%= form_for @spree_admin_post, :url => admin_post_path(@spree_admin_post) do |f| %>
+  <% if @spree_admin_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@spree_admin_post.errors.count, "error") %> prohibited this spree_post from being saved:</h2>
+
+      <ul>
+      <% @spree_admin_post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
