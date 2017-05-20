@@ -1,6 +1,6 @@
 module Spree
-  class PostsController < StoreController
-
+  class PostsController < Spree::StoreController
+    
   before_action :set_spree_post, only: [:show, :edit]
 
   # GET /spree/posts
