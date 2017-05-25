@@ -24,7 +24,7 @@ module Spree
 
       # POST /spree/posts
       def create
-        @spree_admin_post = Spree::Post.new(spree_admin_post_params)
+        @spree_admin_post = Spree::Post.create(spree_admin_post_params)
 
         if @spree_admin_post.save
           redirect_to admin_posts_path, notice: 'Post was successfully created.'
@@ -40,6 +40,7 @@ module Spree
       # GET /spree/posts/new
       def new
         @spree_admin_post = Spree::Post.new
+        @image = Spree::Image.new 
       end
 
       # DELETE /spree/posts/1
@@ -52,7 +53,7 @@ module Spree
       
       # Only allow a trusted parameter "white list" through.
       def spree_admin_post_params
-        params.require(:post).permit(:title, :content)
+        params.require(:post).permit(:title, :content, :post_image)
       end
 
       # Use callbacks to share common setup or constraints between actions.
