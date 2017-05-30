@@ -60,7 +60,7 @@ module Spree
       def set_spree_admin_post
         @spree_admin_post = Spree::Post.find(params[:id])
       end
-    
+
     end
   end
 end

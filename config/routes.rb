@@ -16,3 +16,4 @@ Spree::Core::Engine.add_routes do
     get '/admin/blog', to: 'admin/posts#index'
 
 end
+
