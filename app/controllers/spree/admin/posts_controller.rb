@@ -7,8 +7,19 @@ module Spree
       before_action :set_spree_admin_post, only: [:show, :edit, :update, :destroy]
 
       def index
-      # GET /spree/posts
-        @spree_admin_posts = Spree::Post.all
+        #@spree_admin_posts = Spree::Post.all
+        params[:q] ||= {}
+        
+        if params[:q][:created_at_gt].present?
+          params[:q][:created_at_gt] = Time.zone.parse(params[:q][:created_at_gt]).beginning_of_day rescue ""
+        end
+
+        if params[:q][:created_at_lt].present?
+          params[:q][:created_at_lt] = Time.zone.parse(params[:q][:created_at_lt]).end_of_day rescue ""
+        end
+
+        @search = Spree::Post.ransack(params[:q])
+        @spree_admin_posts = @search.result(distinct: true).page(params[:page]).per(params[:per_page])
       end
 
       def edit

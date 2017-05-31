@@ -1,29 +1,99 @@
 <p id="notice"><%= notice %></p>
+<div class="content-header page-header">
+    <div class="row">
+        <h1 class="col-sm-6">
+            Artigos
+        </h1>
 
-<h1>Listing Spree Posts</h1>
+        <div class="page-actions col-sm-6" data-hook="toolbar">
+              <%= link_to(new_admin_post_path, class: "btn btn-success") do %> 
+                <span class="icon icon-add"></span> Novo Artigo</a>
+              <% end %>
+        </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    </div>
+  </div>
 
-  <tbody>
-    <% @spree_admin_posts.each do |spree_post| %>
-      <tr>
-        <td><%= spree_post.title %></td>
-        <td><%= raw(spree_post.content) %></td>
-        <td><%= link_to 'Show', admin_post_path(spree_post) %></td>
-        <td><%= link_to 'Edit', edit_admin_post_path(spree_post) %></td>
-        <td><%= link_to 'Destroy', admin_post_path(spree_post), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<% content_for :table_filter do %>
+  <%= search_form_for [:admin, @search] do |f| %>
+
+    <div class="row">
+        
+        <div class="col-xs-12 col-md-6">
+            <div class="form-group">
+              <%= f.label :title, Spree.t(:title) %>
+              <%= f.text_field :title_cont, size: 15, class: "form-control" %>
+            </div>
+        </div>
+        
+        <div class="date-range-filter col-md-8">
+          <div class="form-group">
+            <%= label_tag :q_created_at_gt, Spree.t(:date_range) %>
+            <div class="row no-padding-bottom">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <%= f.text_field :created_at_gt, :class => 'datepicker datepicker-from form-control', :value => params[:q][:created_at_gt], :placeholder => Spree.t(:start) %>
+                  <span class="input-group-addon">
+                    <i class="icon icon-calendar"></i>
+                  </span>
+                </div>
+
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <%= f.text_field :created_at_lt, :class => 'datepicker datepicker-to form-control', :value => params[:q][:created_at_lt], :placeholder => Spree.t(:stop) %>
+                  <span class="input-group-addon">
+                    <i class="icon icon-calendar"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+
+      <div data-hook="admin_orders_index_search_buttons" class="form-actions">
+        <%= button Spree.t(:filter_results), 'Search' %>
+      </div>
+
+  <% end %>
+
+
+<% end %>
+  
+
+
+<table class="table" id="listing_products">
+    <thead>
+      <tr data-hook="admin_products_index_headers">
+        <th><%= Spree.t(:image) %></th>
+        <th><%= Spree.t(:title) %></th>
+        <th class="text-center">Available</th>
+        <th class="text-center">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
+    </thead>
+    <tbody>
+      <% @spree_admin_posts.each do |post| %>
+          <tr>
+            <td class="image"><%= image_tag(post.post_image.url(:mini)) %></td>
+            <td class="status"><%= post.title %> </td>
+            <td class="text-center"><%= check_box_tag 'accept' %></td>
+              <td class=" text-center actions actions-3">
+                  <%= link_to(post_path(post), class: "btn btn-primary btn-sm icon-link with-tip action-edit no-text") do %>
+                        <span class="icon icon-eye-open"></span> 
+                  <% end %>
+                  
+                  <%= link_to(edit_admin_post_path(post), class: "btn btn-primary btn-sm icon-link with-tip action-edit no-text") do %>
+                        <span class="icon icon-edit"></span> 
+                  <% end %>
+                  
+                  <%= link_to(admin_post_path(post), class: "btn btn-danger delete-resource btn-sm icon-link with-tip action-delete no-text", method: :delete, data: { confirm: 'Are you sure?' }) do %>
+                        <span class="icon icon-delete"></span> 
+                  <% end %>
+              </td>
+          </tr>
+      <% end %>
+    </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Post', new_admin_post_path %>
