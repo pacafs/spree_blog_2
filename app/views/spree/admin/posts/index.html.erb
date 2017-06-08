@@ -2,7 +2,7 @@
 <div class="content-header page-header">
     <div class="row">
         <h1 class="col-sm-6">
-            Artigos
+            Blog
         </h1>
 
         <div class="page-actions col-sm-6" data-hook="toolbar">
@@ -13,56 +13,6 @@
 
     </div>
   </div>
-
-<% content_for :table_filter do %>
-  <%= search_form_for [:admin, @search] do |f| %>
-
-    <div class="row">
-        
-        <div class="col-xs-12 col-md-6">
-            <div class="form-group">
-              <%= f.label :title, Spree.t(:title) %>
-              <%= f.text_field :title_cont, size: 15, class: "form-control" %>
-            </div>
-        </div>
-        
-        <div class="date-range-filter col-md-8">
-          <div class="form-group">
-            <%= label_tag :q_created_at_gt, Spree.t(:date_range) %>
-            <div class="row no-padding-bottom">
-              <div class="col-md-6">
-                <div class="input-group">
-                  <%= f.text_field :created_at_gt, :class => 'datepicker datepicker-from form-control', :value => params[:q][:created_at_gt], :placeholder => Spree.t(:start) %>
-                  <span class="input-group-addon">
-                    <i class="icon icon-calendar"></i>
-                  </span>
-                </div>
-
-              </div>
-              <div class="col-md-6">
-                <div class="input-group">
-                  <%= f.text_field :created_at_lt, :class => 'datepicker datepicker-to form-control', :value => params[:q][:created_at_lt], :placeholder => Spree.t(:stop) %>
-                  <span class="input-group-addon">
-                    <i class="icon icon-calendar"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-    </div>
-
-
-      <div data-hook="admin_orders_index_search_buttons" class="form-actions">
-        <%= button Spree.t(:filter_results), 'Search' %>
-      </div>
-
-  <% end %>
-
-
-<% end %>
-  
 
 
 <table class="table" id="listing_products">
