@@ -7,25 +7,28 @@ module Spree
       before_action :set_spree_admin_post, only: [:show, :edit, :update, :destroy]
 
       def index
-        #@spree_admin_posts = Spree::Post.all
-        params[:q] ||= {}
+        @spree_admin_posts = Spree::Post.all
+        # params[:q] ||= {}
         
-        if params[:q][:created_at_gt].present?
-          params[:q][:created_at_gt] = Time.zone.parse(params[:q][:created_at_gt]).beginning_of_day rescue ""
-        end
+        # if params[:q][:created_at_gt].present?
+        #   params[:q][:created_at_gt] = Time.zone.parse(params[:q][:created_at_gt]).beginning_of_day rescue ""
+        # end
 
-        if params[:q][:created_at_lt].present?
-          params[:q][:created_at_lt] = Time.zone.parse(params[:q][:created_at_lt]).end_of_day rescue ""
-        end
+        # if params[:q][:created_at_lt].present?
+        #   params[:q][:created_at_lt] = Time.zone.parse(params[:q][:created_at_lt]).end_of_day rescue ""
+        # end
 
-        @search = Spree::Post.ransack(params[:q])
-        @spree_admin_posts = @search.result(distinct: true).page(params[:page]).per(params[:per_page])
+        # @search = Spree::Post.ransack(params[:q])
+        # @spree_admin_posts = @search.result(distinct: true).page(params[:page]).per(params[:per_page])
       end
 
       def edit
+        @categories = Category.all.map{|c| [ c.name, c.id ] }
       end
 
       def update
+        @spree_admin_post.category_id = params[:category_id]
+        
         if @spree_admin_post.update(spree_admin_post_params)
           redirect_to admin_post_path, notice: 'Post was successfully updated.'
         else
@@ -36,6 +39,8 @@ module Spree
       # POST /spree/posts
       def create
         @spree_admin_post = Spree::Post.create(spree_admin_post_params)
+        @spree_admin_post.category_id = params[:category_id]
+
 
         if @spree_admin_post.save
           redirect_to admin_posts_path, notice: 'Post was successfully created.'
@@ -60,11 +65,13 @@ module Spree
         redirect_to admin_posts_url, notice: 'Post was successfully destroyed.'
       end
 
+
+
       private
       
       # Only allow a trusted parameter "white list" through.
       def spree_admin_post_params
-        params.require(:post).permit(:title, :content, :post_image)
+        params.require(:post).permit(:title, :content, :post_image, :slug, :category_id)
       end
 
       # Use callbacks to share common setup or constraints between actions.

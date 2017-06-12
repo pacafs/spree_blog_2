@@ -11,20 +11,85 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-      <%= f.label :post_image %><br>
-      <%= f.file_field :post_image %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br>
-    <%= f.cktext_area :content, rows: 10 %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+  <div>
+  <div class="row">
+
+      <div class="col-md-9" data-hook="admin_product_form_left">
+
+        <div>
+          <%= f.field_container :title, class: ['form-group'] do %>
+            <%= f.label :title, raw(Spree.t(:name) + content_tag(:span, ' *', class: 'required')) %>
+            <%= f.text_field :title, class: 'form-control title' %>
+          <% end %>
+        </div>
+
+        <div>
+          <%= f.field_container :slug, class: ['form-group'] do %>
+            <%= f.label :slug, raw(Spree.t(:slug) + content_tag(:span, ' *', class: "required")) %>
+            <%= f.text_field :slug, class: 'form-control title' %>
+            <%= f.error_message_on :slug %>
+          <% end %>
+        </div>
+
+        <div>
+            <%= f.label :content, Spree.t(:content) %>
+            <%= f.cktext_area :content, rows: 10 %>
+        </div>
+
+
+          <div data-hook="admin_product_form_meta_title">
+            <%= f.field_container :meta_title, class: ['form-group'] do %>
+              <%= f.label :meta_title, Spree.t(:meta_title) %>
+              <%= f.text_field :meta_title, class: 'form-control' %>
+            <% end %>
+          </div>
+
+          <div data-hook="admin_product_form_meta_keywords">
+            <%= f.field_container :meta_keywords, class: ['form-group'] do %>
+              <%= f.label :meta_keywords, Spree.t(:meta_keywords) %>
+              <%= f.text_field :meta_keywords, class: 'form-control' %>
+            <% end %>
+          </div>
+
+          <div data-hook="admin_product_form_meta_description">
+            <%= f.field_container :meta_description, class: ['form-group'] do %>
+              <%= f.label :meta_description, Spree.t(:meta_description) %>
+              <%= f.text_field :meta_description, class: 'form-control' %>
+            <% end %>
+          </div>
+
+        
+
+      </div>
+
+    <div class="col-md-3" data-hook="admin_product_form_right">
+
+        <div>
+          <%= f.field_container :post_image, class: ['form-group'] do %>
+            <%= f.label Spree.t(:image) %><br>
+            <%= f.file_field :post_image %>
+            <%= f.error_message_on :post_image %>
+          <% end %>
+        </div>
+
+        <%= f.select :category_id, @categories, selected: @spree_admin_post.category_id %>
+    </div>
+
+ 
+
+
+
+</div>
+</div>
+
+   <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+        <i class="icon-ok icon-white"></i> Actualizar
+    <% end %>
+
+
+
+
+
 <% end %>

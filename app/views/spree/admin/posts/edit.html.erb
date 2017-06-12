@@ -1,6 +1,19 @@
-<h1>Editing Spree Post</h1>
+<div class="content-header page-header">
+    <div class="row">
+        <h1 class="col-sm-6">
+            Blog
+        </h1>
+
+        <div class="page-actions col-sm-6" data-hook="toolbar">
+              <%= link_to(new_admin_post_path, class: "btn btn-success") do %> 
+                <span class="icon icon-add"></span> Novo Artigo</a>
+              <% end %>
+        </div>
+
+    </div>
+  </div>
 
 <%= render 'update_form' %>
 
-<%= link_to 'Show', admin_post_path(@spree_admin_post) %> |
-<%= link_to 'Back', admin_posts_path %>
+<%#= link_to 'Show', admin_post_path(@spree_admin_post) %>
+<%#= link_to 'Back', admin_posts_path %>
