@@ -3,7 +3,6 @@ class Spree::Post < ActiveRecord::Base
   friendly_id :title, use: [:slugged, :finders]
 
   belongs_to :category
-  has_and_belongs_to_many :tags
 
    has_attached_file :post_image,
 

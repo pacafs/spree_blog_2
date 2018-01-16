@@ -11,8 +11,6 @@
     </div>
   <% end %>
 
-
-
   <div>
   <div class="row">
 
@@ -74,15 +72,23 @@
           <% end %>
         </div>
 
-        <%= f.select :category_id, @categories, selected: @spree_admin_post.category_id %>
+        <%= f.field_container :category, class: ['form-group'] do %>
+          <%= f.label :category %>
+          <%= f.select :category_id, @categories, selected: @spree_admin_post.category_id %>
+        <% end %>
+        
+        <%= f.field_container :tags, class: ['form-group'] do %>
+          <%= f.label :tags %>
+          <%= f.hidden_field :tags, value: @tags %>
+        <% end %>
+
     </div>
 
- 
-
 
 
 </div>
 </div>
+
 
    <%= button_tag(type: 'submit', class: "btn btn-success") do %>
         <i class="icon-ok icon-white"></i> Actualizar

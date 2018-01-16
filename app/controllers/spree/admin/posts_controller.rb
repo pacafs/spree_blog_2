@@ -24,6 +24,7 @@ module Spree
 
       def edit
         @categories = Category.all.map{|c| [ c.name, c.id ] }
+        @tags = @spree_admin_post.tags
       end
 
       def update
@@ -71,7 +72,7 @@ module Spree
       
       # Only allow a trusted parameter "white list" through.
       def spree_admin_post_params
-        params.require(:post).permit(:title, :content, :post_image, :slug, :category_id)
+        params.require(:post).permit(:title, :content, :post_image, :slug, :category_id, :meta_title, :meta_description, :meta_keywords, :tags)
       end
 
       # Use callbacks to share common setup or constraints between actions.
